@@ -1,0 +1,122 @@
+{
+  "name": "gdesktopsuite",
+  "productName": "G Desktop Suite",
+  "version": "0.3.1",
+  "description": "A Google Suite desktop app made with Electron",
+  "copyright": "Copyright © 2022 Adonis1709",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "cross-env NODE_ENV=development electron .",
+    "pack": "electron-builder --dir && yarn update-cask",
+    "build": "electron-builder -mwl -p never",
+    "deploy": "electron-builder -mwl -p onTagOrDraft",
+    "build-cask": "./Casks/update.sh $npm_package_version",
+    "deploy-cask": "cask-repair g-desktop-suite -v $npm_package_version -b",
+    "clean": "concurrently \"prettier './**/*.js' --write\" \"eslint ./**/*.js --fix\"",
+    "clean-check": "concurrently \"prettier './**/*.js' --list-different\" \"eslint ./**/*.js\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn clean-check",
+      "pre-push": "yarn clean"
+    }
+  },
+  "keywords": [
+    "google",
+    "drive",
+    "google drive",
+    "google suite",
+    "desktop"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adonis1709/Drive.git",
+    "report": ""
+  },
+  "author": {
+    "name": "Adonis1709",
+    "email": "nmtien.tdtu@gmail.com"
+  },
+  "license": "MIT",
+  "build": {
+    "appId": "com.MinhTien.GDesktopSuite",
+    "copyright": "Copyright © 2022 Adonis1709",
+    "publish": [
+      {
+        "provider": "github",
+        "repo": "G-Desktop-Suite",
+        "owner": "Adonis1709",
+        "releaseType": "release"
+      }
+    ],
+    "files": [
+      "./build/**/*",
+      "./src/**/*",
+      "./app.js",
+      "./package.json"
+    ],
+    "mac": {
+      "artifactName": "G-Desktop-Suite-${version}.${ext}",
+      "category": "public.app-category.productivity",
+      "darkModeSupport": true
+    },
+    "win": {
+      "artifactName": "G-Desktop-Suite-${version}.${ext}",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "artifactName": "G-Desktop-Suite-${version}.${ext}",
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage",
+        "tar.gz"
+      ],
+      "category": "Development"
+    },
+    "dmg": {
+      "artifactName": "G-Desktop-Suite-${version}.${ext}"
+    },
+    "pkg": {
+      "artifactName": "G-Desktop-Suite-${version}.${ext}"
+    },
+    "nsis": {
+      "artifactName": "G-Desktop-Suite-${version}.${ext}"
+    },
+    "appImage": {
+      "artifactName": "G-Desktop-Suite-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2",
+    "del": "^5.1.0",
+    "electron": "^19.0.3",
+    "electron-builder": "^22.6.0",
+    "electron-log": "^4.1.4",
+    "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "about-window": "^1.12.1",
+    "darkreader": "^4.9.2",
+    "electron-localshortcut": "^3.2.1",
+    "electron-store": "^5.1.1",
+    "electron-updater": "^4.3.1",
+    "electron-window-state": "^5.0.1",
+    "file-system": "^1.2.2"
+  }
+}
